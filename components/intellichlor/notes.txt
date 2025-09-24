@@ -1,0 +1,128 @@
+BAD
+10:02:80:14:00:A6:10:03
+
+GOOD
+> 10:02:50:14:00:76:10:03
+< 10:02:00:03: 00:49:6E:74:65:6C:6C:69:63:68:6C:6F:72:2D:2D:36:30 BE:10:03
+
+2024-04-30 09:42:37.021 -04:00 [Information] [SmartHome.Services.SWGService] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] SWG "Version" Payload Response 17 "00 49 6E 74 65 6C 6C 69 63 68 6C 6F 72 2D 2D 36 30"
+2024-04-30 09:42:37.021 -04:00 [Information] [SmartHome.rs485LinuxSTTYService] ["PeriodicWorkerWorker-SWGService.DoWorkAsync", "/dev/ttySC0"] Read: 3 of 3 - 
+
+[Information] [SmartHome.rs485LinuxSTTYService] ["PeriodicWorkerWorker-SWGService.DoWorkAsync", "/dev/ttySC0"] Write: ""
+2024-04-30 09:42:37.004 -04:00 [Information] [SmartHome.rs485LinuxSTTYService] ["PeriodicWorkerWorker-SWGService.DoWorkAsync", "/dev/ttySC0"] Read: 4 of 4 - "10020003"
+2024-04-30 09:42:37.012 -04:00 [Information] [SmartHome.rs485LinuxSTTYService] ["PeriodicWorkerWorker-SWGService.DoWorkAsync", "/dev/ttySC0"] Read Short: 12 of 17 Try 2 of 5
+2024-04-30 09:42:37.020 -04:00 [Information] [SmartHome.rs485LinuxSTTYService] ["PeriodicWorkerWorker-SWGService.DoWorkAsync", "/dev/ttySC0"] Read: 17 of 17 - "00496E74656C6C6963686C6F722D2D3630"
+2024-04-30 09:42:37.021 -04:00 [Information] [SmartHome.Services.SWGService] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] SWG "Version" Payload Response 17 "00 49 6E 74 65 6C 6C 69 63 68 6C 6F 72 2D 2D 36 30"
+2024-04-30 09:42:37.021 -04:00 [Information] [SmartHome.rs485LinuxSTTYService] ["PeriodicWorkerWorker-SWGService.DoWorkAsync", "/dev/ttySC0"] Read: 3 of 3 - "BE1003"
+2024-04-30 09:42:37.021 -04:00 [Information] [SmartHome.Services.SWGService] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] SWG Payload Response Footer "Version" "BE 10 03"
+2024-04-30 09:42:37.021 -04:00 [Information] [SmartHome.Services.SWGService] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] SWG Valid Response GetVerRsp Try 1 "10 02 00 03 00 49 6E 74 65 6C 6C 69 63 68 6C 6F 72 2D 2D 36 30 BE 10 03"
+2024-04-30 09:42:37.021 -04:00 [Information] [SmartHome.Services.SWGService] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] SWG Response GetVerRsp Packet "10 02 00 03 00 49 6E 74 65 6C 6C 69 63 68 6C 6F 72 2D 2D 36 30 BE 10 03"
+2024-04-30 09:42:37.021 -04:00 [Information] [SmartHome.MQTTManager] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] MQTT Publish Topic "wolfhome/SWGManager/SaltPPMVer/state" Retain False Message "0"
+2024-04-30 09:42:37.021 -04:00 [Information] [SmartHome.MQTTClient] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] MQTTRawClient PendingMessageCount:0
+2024-04-30 09:42:37.021 -04:00 [Information] [SmartHome.MQTTClient] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] MQTTRawClient SafePublishStringAsync Start - Retain:False Topic:"wolfhome/SWGManager/SaltPPMVer/state" Message:"0"
+2024-04-30 09:42:37.021 -04:00 [Information] [SmartHome.MQTTClient] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] MQTTRawClient SafePublishStringAsync Done - Retain:False Topic:"wolfhome/SWGManager/SaltPPMVer/state" Message:"0"
+2024-04-30 09:42:37.022 -04:00 [Information] [SmartHome.MQTTManager] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] MQTT Publish Topic "wolfhome/SWGManager/Version/state" Retain False Message "Intellichlor--60"
+2024-04-30 09:42:37.022 -04:00 [Information] [SmartHome.MQTTClient] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] MQTTRawClient PendingMessageCount:0
+2024-04-30 09:42:37.022 -04:00 [Information] [SmartHome.MQTTClient] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] MQTTRawClient SafePublishStringAsync Start - Retain:False Topic:"wolfhome/SWGManager/Version/state" Message:"Intellichlor--60"
+2024-04-30 09:42:37.022 -04:00 [Information] [SmartHome.MQTTClient] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] MQTTRawClient SafePublishStringAsync Done - Retain:False Topic:"wolfhome/SWGManager/Version/state" Message:"Intellichlor--60"
+2024-04-30 09:42:37.022 -04:00 [Information] [SmartHome.Services.SWGService] ["PeriodicWorkerWorker-SWGService.DoWorkAsync"] SWG Request GetTempCmd Packet "10 02 50 15 00 77 10 03" Try 1
+2024-04-30 09:42:37.026 -04:00 [Information] [SmartHome.Services.I2CProbeService] ["MQTTRawClient ConnectMQTTAsync", "TempRelay"] Topic:"wolfhome/SWGManager/Version/state" Msg:"Intellichlor--60"
+
+
+
+[16:15:40][I][intellichlor.component:087]: send_command_ len:3
+[16:15:40][I][intellichlor.component:089]: send_command_ 0: 50
+[16:15:40][I][intellichlor.component:089]: send_command_ 1: 14
+[16:15:40][I][intellichlor.component:089]: send_command_ 2: 00
+[16:15:40][I][intellichlor.component:092]: send_command_ write_array CMD_FRAME_HEADER 2
+[16:15:40][I][intellichlor.component:099]: send_command_ write_byte command 0 50
+[16:15:40][I][intellichlor.component:099]: send_command_ write_byte command 1 14
+[16:15:40][I][intellichlor.component:099]: send_command_ write_byte command 2 00
+[16:15:40][I][intellichlor.component:105]: send_command_ write_byte CRC 76
+[16:15:40][I][intellichlor.component:108]: send_command_ write_array CMD_FRAME_FOOTER 2
+[16:15:40][I][intellichlor.component:087]: send_command_ len:3
+[16:15:40][I][intellichlor.component:089]: send_command_ 0: 50
+[16:15:40][I][intellichlor.component:089]: send_command_ 1: 15
+[16:15:40][I][intellichlor.component:089]: send_command_ 2: 00
+[16:15:40][I][intellichlor.component:092]: send_command_ write_array CMD_FRAME_HEADER 2
+[16:15:40][I][intellichlor.component:099]: send_command_ write_byte command 0 50
+[16:15:40][I][intellichlor.component:099]: send_command_ write_byte command 1 15
+[16:15:40][I][intellichlor.component:099]: send_command_ write_byte command 2 00
+[16:15:40][I][intellichlor.component:105]: send_command_ write_byte CRC 77
+[16:15:40][I][intellichlor.component:108]: send_command_ write_array CMD_FRAME_FOOTER 2
+[16:15:40][W][component:237]: Component intellichlor took a long time for an operation (123 ms).
+[16:15:40][W][component:238]: Components should block for at most 30 ms.
+
+[16:15:40][D][uart_debug:114]: >>> 
+10:02:50:14:00:76:10:03 GetVersion
+10:02:50:15:00:77:10:03 GetTemp
+
+10
+
+
+[16:15:40][I][intellichlor.component:118]: readline_ byte:10 pos:0
+[16:15:40][I][intellichlor.component:118]: readline_ byte:02 pos:1
+[16:15:40][I][intellichlor.component:118]: readline_ byte:00 pos:2
+[16:15:40][I][intellichlor.component:118]: readline_ byte:03 pos:3
+[16:15:40][I][intellichlor.component:118]: readline_ byte:00 pos:4
+[16:15:40][I][intellichlor.component:118]: readline_ byte:49 pos:5
+[16:15:40][I][intellichlor.component:118]: readline_ byte:6E pos:6
+[16:15:40][I][intellichlor.component:118]: readline_ byte:74 pos:7
+[16:15:40][I][intellichlor.component:118]: readline_ byte:FD pos:8
+[16:15:40][I][intellichlor.component:118]: readline_ byte:AD pos:9
+[16:15:40][I][intellichlor.component:118]: readline_ byte:2C pos:10
+[16:15:40][I][intellichlor.component:118]: readline_ byte:8B pos:11
+[16:15:40][I][intellichlor.component:118]: readline_ byte:EB pos:12
+[16:15:40][I][intellichlor.component:118]: readline_ byte:4B pos:13
+[16:15:40][I][intellichlor.component:125]: readline_ data byte:4B pos:13
+[16:15:40][I][intellichlor.component:125]: readline_ data byte:83 pos:18
+[16:15:40][I][intellichlor.component:118]: readline_ byte:03 pos:19
+[16:15:40][I][intellichlor.component:125]: readline_ data byte:03 pos:19
+[16:15:40][W][component:237]: Component intellichlor took a long time for an operation (249 ms).
+[16:15:40][W][component:238]: Components should block for at most 30 ms.
+[16:15:40][W][esp32_ble_tracker:110]: Too many BLE events to process. Some devices may not show up.
+[16:15:40][D][api.connection:1210]: Home Assistant 2024.4.3 (192.168.2.19): Connected successfully
+[16:15:40][D][time:049]: Synchronized time: 2024-05-01 16:15:40
+[16:15:40][D][uart_debug:114]: <<< 10:02:00:03:00:49:6E:74:FD:AD:2C:8B:EB:4B:B5:AD:FF:F2:83:03
+
+
+aquapured/SWG/fullstatus
+
+0 on                00000000
+1 no flow           00000001
+2 low salt          00000010
+4 high salt         00000100
+8 clean cell        00001000
+9 turning off       00001001
+16 high current     00010000
+32 low volts        00100000
+64 low temp         01000000
+128 check PCB       10000000
+255 off             11111111
+
+
+[09:59:46][I][intellichlor.component:139]: send Takeover
+[09:59:46][I][intellichlor.component:210]: send_command_ queue packet QueueSize:0
+
+[09:59:46][I][intellichlor.component:144]: send SetPercent
+[09:59:46][I][intellichlor.component:210]: send_command_ queue packet QueueSize:1
+
+[09:59:46][I][intellichlor.component:127]: send GetVersion
+[09:59:46][I][intellichlor.component:210]: send_command_ queue packet QueueSize:2
+
+[09:59:46][I][intellichlor.component:133]: send GetTemp
+[09:59:46][I][intellichlor.component:210]: send_command_ queue packet QueueSize:3
+
+[09:59:46][I][intellichlor.component:259]: readline_ complete packet RecvBuffer:0
+[09:59:46][I][intellichlor.component:313]: TakeoverResp Packet Status:01
+[09:59:46][D][text_sensor:064]: 'SWG Debug': Sending state 'FullPacket TakeoverResp Status:01'
+
+[09:59:46][I][intellichlor.component:259]: readline_ complete packet RecvBuffer:0
+[09:59:46][I][intellichlor.component:293]: SetResp Packet Salt:2950 Error:80
+[09:59:46][D][text_sensor:064]: 'SWG Debug': Sending state 'FullPacket SetResp Salt:2950 Error:80'
+
+[09:59:46][I][intellichlor.component:259]: readline_ complete packet RecvBuffer:0
+[09:59:46][I][intellichlor.component:272]: VersionResp Packet Version:Intellichlor--60
+[09:59:46][D][text_sensor:064]: 'SWG Version': Sending state 'Intellichlor--60'
+[09:59:46][D][text_sensor:064]: 'SWG Debug': Sending state 'FullPacket VersionResp Version:Intellichlor--60'
+[09:59:50][D][text_sensor:064]: 'Pump Status': Sending state 'Run'

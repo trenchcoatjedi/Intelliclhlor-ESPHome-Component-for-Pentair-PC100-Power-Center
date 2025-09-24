@@ -32,7 +32,7 @@ class INTELLICHLORComponent : public PollingComponent, public uart::UARTDevice {
   SUB_SENSOR(set_percent)
   SUB_BINARY_SENSOR(no_flow)
   SUB_BINARY_SENSOR(low_salt)
-  SUB_BINARY_SENSOR(high_salt)
+  SUB_BINARY_SENSOR(very_low_salt)
   SUB_BINARY_SENSOR(clean)
   SUB_BINARY_SENSOR(high_current)
   SUB_BINARY_SENSOR(low_volts)
@@ -64,10 +64,14 @@ class INTELLICHLORComponent : public PollingComponent, public uart::UARTDevice {
   void send_command_(const uint8_t *command, int command_len, uint8_t retries);
   bool readline_(int readch, uint8_t *buffer, int len);
 
+  void log_hex(std::string prefix, std::vector<uint8_t> bytes, size_t len, uint8_t separator);
+  void log_hex(std::string prefix, uint8_t* bytes, size_t len, uint8_t separator);
+
   // last send operation
   uint32_t last_command_timestamp_;
   uint32_t last_recv_timestamp_;
   uint32_t last_loop_timestamp_;
+  uint32_t last_debug_timestamp_;
   
   // send queue tuple<retries,current_attempt,data>
   std::queue<std::tuple<uint8_t, uint8_t, std::vector<uint8_t> >> send_queue_;

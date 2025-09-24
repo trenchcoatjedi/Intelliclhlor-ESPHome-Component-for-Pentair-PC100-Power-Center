@@ -11,7 +11,7 @@ from . import CONF_INTELLICHLOR_ID, INTELLICHLORComponent
 DEPENDENCIES = ["intellichlor"]
 CONF_NO_FLOW = "no_flow"
 CONF_LOW_SALT = "low_salt"
-CONF_HIGH_SALT = "high_salt"
+CONF_VERY_LOW_SALT = "very_low_salt"
 CONF_CLEAN = "clean"
 CONF_HIGH_CURRENT = "high_current"
 CONF_LOW_VOLTS = "low_volts"
@@ -30,7 +30,7 @@ CONFIG_SCHEMA = {
         entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
         icon=ICON_BUG,
     ),
-    cv.Optional(CONF_HIGH_SALT): binary_sensor.binary_sensor_schema(
+    cv.Optional(CONF_VERY_LOW_SALT): binary_sensor.binary_sensor_schema(
         device_class=DEVICE_CLASS_PROBLEM,
         entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
         icon=ICON_BUG,
@@ -73,9 +73,9 @@ async def to_code(config):
         sens = await binary_sensor.new_binary_sensor(low_salt_config)
         cg.add(ld2410_component.set_low_salt_binary_sensor(sens))
     
-    if high_salt_config := config.get(CONF_HIGH_SALT):
-        sens = await binary_sensor.new_binary_sensor(high_salt_config)
-        cg.add(ld2410_component.set_high_salt_binary_sensor(sens))
+    if very_low_salt_config := config.get(CONF_VERY_LOW_SALT):
+        sens = await binary_sensor.new_binary_sensor(very_low_salt_config)
+        cg.add(ld2410_component.set_very_low_salt_binary_sensor(sens))
     
     if clean_config := config.get(CONF_CLEAN):
         sens = await binary_sensor.new_binary_sensor(clean_config)
