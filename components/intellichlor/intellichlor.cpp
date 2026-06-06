@@ -88,7 +88,7 @@ void INTELLICHLORComponent::loop() {
                     this->flow_control_pin_->digital_write(true);
                 }
 
-                ESP_LOGV(TAG, "Sending %i bytes", data->size());
+                ESP_LOGV(TAG, "Sending %i bytes", (int) data.size());
                 this->write_array(data);
                 this->flush();
 
