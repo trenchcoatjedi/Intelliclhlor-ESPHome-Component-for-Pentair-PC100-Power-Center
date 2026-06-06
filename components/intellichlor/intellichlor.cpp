@@ -18,7 +18,7 @@ void INTELLICHLORComponent::setup() {
     this->last_command_timestamp_ = millis();
     this->last_recv_timestamp_ = millis();
     this->last_loop_timestamp_ = millis();
-    this->last_debug_timestamp_ - millis();
+    this->last_debug_timestamp_ = millis();
 }
 
 void INTELLICHLORComponent::dump_config() {
