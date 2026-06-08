@@ -5,6 +5,7 @@
 #include "esphome/components/uart/uart.h"
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/binary_sensor/binary_sensor.h"
+#include "esphome/components/text_sensor/text_sensor.h"
 #include "esphome/components/number/number.h"
 #include "esphome/components/switch/switch.h"
 
@@ -23,10 +24,16 @@ namespace pentair_pump {
 // IntelliChlor via uart_splitter, so transmits are queued and gated (one frame
 // per ~100 ms) to stay a polite bus citizen.
 class PentairPump : public PollingComponent, public uart::UARTDevice {
-  SUB_SENSOR(rpm)
-  SUB_SENSOR(watts)
-  SUB_SENSOR(gpm)
+  // Decoded fields of the pump's status reply (cmd 0x07).
+  SUB_SENSOR(rpm)            // data[5..6]
+  SUB_SENSOR(watts)          // data[3..4]
+  SUB_SENSOR(gpm)            // data[7]
+  SUB_SENSOR(mode)           // data[1]
+  SUB_SENSOR(drive_state)    // data[2]
+  SUB_SENSOR(run_state)      // data[0] (0x0A run / 0x04 stop)
+  SUB_SENSOR(status_code)    // data[10] (error/alarm byte)
   SUB_BINARY_SENSOR(running)
+  SUB_TEXT_SENSOR(last_status)  // full hex of the last status reply
   SUB_SWITCH(run)
   SUB_NUMBER(target_rpm)
   SUB_NUMBER(target_gpm)

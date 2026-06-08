@@ -1,5 +1,6 @@
 #include "pentair_pump.h"
 #include "esphome/core/log.h"
+#include "esphome/core/helpers.h"
 
 namespace esphome {
 namespace pentair_pump {
@@ -127,19 +128,43 @@ void PentairPump::handle_frame_(size_t total) {
   uint8_t len = this->buf_[5];
   if (src != this->address_)
     return;  // only the pump's own replies
-  // Status reply: data[3..4]=watts, data[5..6]=rpm, data[7]=gpm (all BE).
-  if (cmd == 0x07 && len >= 7) {
-    uint16_t watts = (uint16_t(this->buf_[6 + 3]) << 8) | this->buf_[6 + 4];
-    uint16_t rpm = (uint16_t(this->buf_[6 + 5]) << 8) | this->buf_[6 + 6];
-    ESP_LOGD(TAG, "pump status rpm=%u watts=%u", rpm, watts);
-    if (this->rpm_sensor_ != nullptr)
-      this->rpm_sensor_->publish_state(rpm);
-    if (this->watts_sensor_ != nullptr)
-      this->watts_sensor_->publish_state(watts);
-    if (len >= 8 && this->gpm_sensor_ != nullptr)
-      this->gpm_sensor_->publish_state(this->buf_[6 + 7]);
-    if (this->running_binary_sensor_ != nullptr)
-      this->running_binary_sensor_->publish_state(rpm > 0);
+  if (cmd != 0x07 || len < 7)
+    return;  // we only decode status replies here
+
+  // Status reply payload (data starts at buf_[6]):
+  //   [0] run state (0x0A run / 0x04 stop)   [1] mode        [2] drive state
+  //   [3..4] watts (BE)   [5..6] rpm (BE)     [7] gpm         [10] status/error
+  const uint8_t *d = &this->buf_[6];
+  uint8_t run_state = d[0];
+  uint8_t mode = d[1];
+  uint8_t drive_state = d[2];
+  uint16_t watts = (uint16_t(d[3]) << 8) | d[4];
+  uint16_t rpm = (uint16_t(d[5]) << 8) | d[6];
+
+  ESP_LOGD(TAG, "pump status rpm=%u watts=%u mode=%u drive=0x%02X run=0x%02X", rpm, watts, mode,
+           drive_state, run_state);
+
+  if (this->rpm_sensor_ != nullptr)
+    this->rpm_sensor_->publish_state(rpm);
+  if (this->watts_sensor_ != nullptr)
+    this->watts_sensor_->publish_state(watts);
+  if (this->mode_sensor_ != nullptr)
+    this->mode_sensor_->publish_state(mode);
+  if (this->drive_state_sensor_ != nullptr)
+    this->drive_state_sensor_->publish_state(drive_state);
+  if (this->run_state_sensor_ != nullptr)
+    this->run_state_sensor_->publish_state(run_state);
+  if (this->running_binary_sensor_ != nullptr)
+    this->running_binary_sensor_->publish_state(rpm > 0);
+  if (len >= 8 && this->gpm_sensor_ != nullptr)
+    this->gpm_sensor_->publish_state(d[7]);
+  if (len >= 11 && this->status_code_sensor_ != nullptr)
+    this->status_code_sensor_->publish_state(d[10]);
+
+  // Full reply as hex — captures every byte, incl. fields not yet decoded.
+  if (this->last_status_text_sensor_ != nullptr) {
+    std::vector<uint8_t> frame(this->buf_.begin(), this->buf_.begin() + total);
+    this->last_status_text_sensor_->publish_state(format_hex_pretty(frame));
   }
 }
 
