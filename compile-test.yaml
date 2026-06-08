@@ -70,6 +70,14 @@ sensor:
       name: "Pump Watts"
     gpm:
       name: "Pump GPM"
+    mode:
+      name: "Pump Mode"
+    drive_state:
+      name: "Pump Drive State"
+    run_state:
+      name: "Pump Run State"
+    status_code:
+      name: "Pump Status Code"
 
 binary_sensor:
   - platform: pentair_pump
@@ -98,6 +106,10 @@ text_sensor:
     intellichlor_id: comp_intellichlor
     version:
       name: "SWG Version"
+  - platform: pentair_pump
+    pentair_pump_id: comp_pump
+    last_status:
+      name: "Pump Last Status Frame"
 
 select:
   - platform: intellichlor
