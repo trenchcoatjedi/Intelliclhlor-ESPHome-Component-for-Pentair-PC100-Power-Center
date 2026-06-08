@@ -1,0 +1,106 @@
+# Local compile-test harness — NOT a deploy config.
+# Exercises all four components (intellichlor + uart_splitter + pentair_pump +
+# pentair_sniffer) wired exactly like the live board, built from this local clone.
+#   esphome config  compile-test.yaml
+#   esphome compile compile-test.yaml
+esphome:
+  name: compile-test
+
+esp32:
+  board: esp32-s3-devkitc-1
+  flash_size: 8MB
+  framework:
+    type: esp-idf
+
+logger:
+
+external_components:
+  - source:
+      type: local
+      path: components
+    components: [intellichlor, uart_splitter, pentair_pump, pentair_sniffer]
+
+# Single hardware RS485 bus, as on the real board.
+uart:
+  id: mod_uart
+  tx_pin: GPIO17
+  rx_pin: GPIO18
+  baud_rate: 9600
+
+# Fan the one bus out to three readers.
+uart_splitter:
+  uart_id: mod_uart
+  channels:
+    - id: uart_chlor
+    - id: uart_pump
+    - id: uart_pump_sniff
+
+# Existing salt cell, now on its own channel.
+intellichlor:
+  id: comp_intellichlor
+  uart_id: uart_chlor
+  update_interval: 5s
+
+# New pump master.
+pentair_pump:
+  id: comp_pump
+  uart_id: uart_pump
+  address: 0x60
+
+# Passive verifier — its sensors are declared inline (hub pattern).
+pentair_sniffer:
+  id: comp_sniffer
+  uart_id: uart_pump_sniff
+  pump_address: 0x60
+  pump_frames:
+    name: "Sniffer pump frames"
+  pump_rpm:
+    name: "Sniffer pump RPM"
+
+sensor:
+  - platform: intellichlor
+    intellichlor_id: comp_intellichlor
+    salt_ppm:
+      name: "SWG Salt PPM"
+  - platform: pentair_pump
+    pentair_pump_id: comp_pump
+    rpm:
+      name: "Pump RPM"
+    watts:
+      name: "Pump Watts"
+    gpm:
+      name: "Pump GPM"
+
+binary_sensor:
+  - platform: pentair_pump
+    pentair_pump_id: comp_pump
+    running:
+      name: "Pump Running"
+
+number:
+  - platform: pentair_pump
+    pentair_pump_id: comp_pump
+    target_rpm:
+      name: "Pump Target RPM"
+    target_gpm:
+      name: "Pump Target GPM"
+
+switch:
+  - platform: pentair_pump
+    pentair_pump_id: comp_pump
+    run:
+      name: "Pump Run"
+
+# intellichlor.h unconditionally includes the select + text_sensor headers, so
+# those base platforms must be present (as in the live config).
+text_sensor:
+  - platform: intellichlor
+    intellichlor_id: comp_intellichlor
+    version:
+      name: "SWG Version"
+
+select:
+  - platform: intellichlor
+    intellichlor_id: comp_intellichlor
+    swg_boost:
+      name: "SWG Boost"

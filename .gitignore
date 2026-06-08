@@ -164,3 +164,6 @@ dmypy.json
 
 # mac files
 .DS_Store
+
+# ESPHome local build output (from compile-test.yaml)
+.esphome/
